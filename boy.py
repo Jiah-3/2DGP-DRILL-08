@@ -101,6 +101,10 @@ class Run:
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
         self.boy.x += self.boy.dir * 5
+        if self.boy.x < 20:
+            self.boy.x = 20
+        elif self.boy.x > 780:
+            self.boy.x = 780
 
     def draw(self):
         if self.boy.face_dir == 1: # right
