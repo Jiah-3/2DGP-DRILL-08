@@ -47,7 +47,7 @@ class Boy:
                 self.SLEEP : {space_down: self.IDLE},
                 self.IDLE : {time_out: self.SLEEP, right_down: self.RUN, left_down: self.RUN, right_up: self.RUN, left_up: self.RUN, auto_run: self.AUTORUN},
                 self.RUN : {right_up: self.IDLE, left_up: self.IDLE, right_down: self.IDLE, left_down: self.IDLE},
-                self.AUTORUN : {auto_run: self.IDLE, right_down: self.RUN, left_down: self.RUN}
+                self.AUTORUN : {time_out: self.IDLE, auto_run: self.IDLE, right_down: self.RUN, left_down: self.RUN}
             }
         )
 
@@ -92,8 +92,10 @@ class Run:
     def enter(self, e):
         if right_down(e) or left_up(e):
             self.boy.dir = self.boy.face_dir = 1
+            self.boy.start_time = 0.0
         elif left_down(e) or right_up(e):
             self.boy.dir = self.boy.face_dir = -1
+            self.boy.start_time = 0.0
 
     def exit(self, e):
         pass

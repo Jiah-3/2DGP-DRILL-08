@@ -1,9 +1,13 @@
+from pico2d import get_time
+
 class AutoRun:
     def __init__(self, boy):
         self.boy = boy
+        self.start_time = 0.0
 
     def enter(self, e):
         self.boy.dir = self.boy.face_dir
+        self.start_time = get_time()
 
     def exit(self, e):
         pass
@@ -17,6 +21,9 @@ class AutoRun:
         elif self.boy.x > 800:
             self.boy.x = 800
             self.boy.dir = self.boy.face_dir = -1
+
+        if get_time() - self.start_time > 5.0:
+            self.boy.state_machine.handle_state_event(('TIME_OUT', None))
 
     def draw(self):
         if self.boy.face_dir == 1:  # right
